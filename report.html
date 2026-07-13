@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Report - VitalMetrics Pro</title>
+    <link rel="stylesheet" href="report-styles.css">
+    <!-- PDF Generation Libraries - More Reliable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header -->
+        <header class="report-header pdf-section">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">VM</div>
+                    <div>
+                        <h1>VITALMETRICS PRO</h1>
+                        <p>Personal Body Composition & Health Analysis</p>
+                    </div>
+                </div>
+                <div class="report-title">
+                    <h2>WELLNESS REPORT — CONFIDENTIAL ASSESSMENT</h2>
+                    <p class="eval-date">Evaluation Date: <span id="reportDate"></span></p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page 1: Person Details -->
+        <section class="report-section pdf-section">
+            <h3 class="section-title">PERSON DETAILS</h3>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <label>PERSON NAME</label>
+                    <p id="displayName" class="detail-value"></p>
+                </div>
+                <div class="detail-item">
+                    <label>GENDER</label>
+                    <p id="displayGender" class="detail-value"></p>
+                </div>
+                <div class="detail-item">
+                    <label>CHRONOLOGICAL AGE</label>
+                    <p id="displayAge" class="detail-value"></p>
+                </div>
+                <div class="detail-item">
+                    <label>HEIGHT</label>
+                    <p id="displayHeight" class="detail-value"></p>
+                </div>
+                <div class="detail-item">
+                    <label>WEIGHT</label>
+                    <p id="displayWeight" class="detail-value"></p>
+                </div>
+                <div class="detail-item">
+                    <label>EVALUATION DATE</label>
+                    <p id="displayEvalDate" class="detail-value"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: Parameters Summary -->
+        <section class="report-section pdf-section">
+            <h3 class="section-title">PARAMETERS SUMMARY OVERVIEW</h3>
+            
+            <div class="parameter-card" id="trunkFatCard">
+                <div class="parameter-header">
+                    <h4>Trunk Subcutaneous Fat (TSF)</h4>
+                    <span class="status-badge"></span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="trunkFatValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value" id="trunkFatTarget"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value deviation" id="trunkFatDeviation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="muscleMassCard">
+                <div class="parameter-header">
+                    <h4>Skeletal Muscle Mass</h4>
+                    <span class="status-badge"></span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="muscleMassValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value" id="muscleMassTarget"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value deviation" id="muscleMassDeviation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="bodyFatCard">
+                <div class="parameter-header">
+                    <h4>Total Body Fat</h4>
+                    <span class="status-badge"></span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="bodyFatValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value" id="bodyFatTarget"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value deviation" id="bodyFatDeviation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="visceralFatCard">
+                <div class="parameter-header">
+                    <h4>Visceral Fat Level</h4>
+                    <span class="status-badge"></span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="visceralFatValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value" id="visceralFatTarget"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value deviation" id="visceralFatDeviation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card" id="bmiCard">
+                <div class="parameter-header">
+                    <h4>BMI (Body Mass Index)</h4>
+                    <span class="status-badge"></span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="bmiValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value" id="bmiTarget"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value deviation" id="bmiDeviation"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parameter-card optimal" id="bmrCard">
+                <div class="parameter-header">
+                    <h4>Basal Metabolic Rate (BMR)</h4>
+                    <span class="status-badge">MEASURED</span>
+                </div>
+                <div class="parameter-values">
+                    <div class="param-value">
+                        <label>PRESENT VALUE</label>
+                        <p class="value" id="bmrValue"></p>
+                    </div>
+                    <div class="param-value">
+                        <label>TARGET RANGE</label>
+                        <p class="value">—</p>
+                    </div>
+                    <div class="param-value">
+                        <label>DEVIATION</label>
+                        <p class="value">—</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <span class="legend-item"><span class="dot optimal-dot"></span> In Range (Optimal)</span>
+                <span class="legend-item"><span class="dot attention-dot"></span> Out of Range</span>
+                <span class="legend-note">Color intensity reflects status severity</span>
+            </div>
+        </section>
+
+        <!-- Page 3: Biological Age Summary -->
+        <section class="report-section bio-age-section pdf-section">
+            <h3 class="section-title">BIOLOGICAL BODY AGE SUMMARY</h3>
+            
+            <div class="bio-age-card">
+                <h2 class="bio-age-title">Biological Age: <span id="biologicalAge"></span> Years</h2>
+                <p class="chrono-age">Chronological Age: <span id="chronologicalAge"></span> years</p>
+                <p class="age-diff" id="ageDifference"></p>
+                
+                <div class="wellness-index">
+                    <p class="wellness-title">Overall Wellness Index: <span id="wellnessScore"></span>/100 — <span id="wellnessCategory"></span></p>
+                    <div class="wellness-bar">
+                        <div class="wellness-fill" id="wellnessFill"></div>
+                        <div class="wellness-scale">
+                            <span>0</span>
+                            <span>20</span>
+                            <span>40</span>
+                            <span>60</span>
+                            <span>80</span>
+                            <span>100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coach-remarks">
+                <h4>COACH REMARKS</h4>
+                <p class="coach-name" id="coachName"></p>
+                <div class="remarks-content" id="remarksContent"></div>
+            </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <section class="action-section no-print">
+            <button onclick="downloadPDF()" class="action-btn pdf-btn">📄 Download as PDF</button>
+            <button onclick="printToPDF()" class="action-btn print-btn">🖨️ Print Report</button>
+            <button onclick="sendToWhatsApp()" class="action-btn whatsapp-btn">📱 Send to WhatsApp</button>
+            <button onclick="sendToEmail()" class="action-btn email-btn">📧 Send to Email</button>
+            <button onclick="window.location.href='index.html'" class="action-btn back-btn">← Back to Form</button>
+        </section>
+
+        <!-- Footer -->
+        <footer class="report-footer pdf-section">
+            <p>Wellness Coach: <span id="footerCoach"></span> | Mobile: <span id="footerMobile"></span></p>
+            <p class="footer-note">VitalMetrics Pro Wellness Report generated based on personal anthropometric parameters. Reference ranges derived from WHO, ACSM, and metabolic cardiovascular standards.</p>
+            <p class="version">Diagnostic Engine v2.0 | VitalMetrics Pro</p>
+        </footer>
+    </div>
+
+    <script src="report-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Library Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .test-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #3498db; }
+        .status { 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background: #d4edda; color: #155724; border: 2px solid #28a745; }
+        .error { background: #f8d7da; color: #721c24; border: 2px solid #dc3545; }
+        .info { background: #d1ecf1; color: #0c5460; border: 2px solid #17a2b8; }
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover { background: #c0392b; }
+        button:disabled { background: #95a5a6; cursor: not-allowed; }
+        #testContent {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+        }
+    </style>
+    <!-- PDF Generation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="test-container">
+        <h1>📄 PDF Generation Test</h1>
+        <p>This page tests if the PDF libraries are loading correctly.</p>
+        
+        <div id="status" class="status info">⏳ Checking libraries...</div>
+        
+        <div id="testContent">
+            <h2>Sample Content</h2>
+            <p><strong>Person Name:</strong> John Smith</p>
+            <p><strong>Age:</strong> 35 years</p>
+            <p><strong>Gender:</strong> Male</p>
+            <p><strong>BMI:</strong> 24.5 kg/m²</p>
+            <p><strong>Wellness Index:</strong> 85/100</p>
+            <p>This is a test report that will be converted to PDF.</p>
+        </div>
+
+        <button id="testBtn" onclick="testPDFGeneration()" disabled>Test PDF Download</button>
+        <button onclick="location.href='index.html'">← Back to Main App</button>
+
+        <div id="result" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        // Check if libraries loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const statusDiv = document.getElementById('status');
+                const testBtn = document.getElementById('testBtn');
+                
+                if (typeof html2canvas !== 'undefined' && typeof window.jspdf !== 'undefined') {
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = '✅ Libraries loaded successfully! Both jsPDF and html2canvas are ready.';
+                    testBtn.disabled = false;
+                } else {
+                    statusDiv.className = 'status error';
+                    let missing = [];
+                    if (typeof html2canvas === 'undefined') missing.push('html2canvas');
+                    if (typeof window.jspdf === 'undefined') missing.push('jsPDF');
+                    statusDiv.innerHTML = '❌ Error: Missing libraries: ' + missing.join(', ') + '<br>Please check your internet connection and refresh the page.';
+                }
+            }, 1000);
+        });
+
+        // Test PDF generation
+        async function testPDFGeneration() {
+            const btn = document.getElementById('testBtn');
+            const resultDiv = document.getElementById('result');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ Generating PDF...';
+            resultDiv.innerHTML = '<div class="status info">⏳ Starting PDF generation...</div>';
+
+            try {
+                // Get test content
+                const element = document.getElementById('testContent');
+                
+                resultDiv.innerHTML += '<div class="status info">✓ Step 1: Capturing content as image...</div>';
+                
+                // Capture as canvas
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff'
+                });
+
+                resultDiv.innerHTML += '<div class="status info">✓ Step 2: Converting to image data...</div>';
+
+                // Convert to image
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+                resultDiv.innerHTML += '<div class="status info">✓ Step 3: Creating PDF document...</div>';
+
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Calculate dimensions
+                const imgWidth = 210;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // Add image to PDF
+                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+
+                resultDiv.innerHTML += '<div class="status info">✓ Step 4: Saving PDF file...</div>';
+
+                // Save PDF
+                const filename = 'Test_Report_' + new Date().toISOString().split('T')[0] + '.pdf';
+                pdf.save(filename);
+
+                resultDiv.innerHTML += '<div class="status success">✅ SUCCESS! PDF generated and downloaded!<br>Filename: ' + filename + '<br>Check your Downloads folder.</div>';
+                
+                btn.disabled = false;
+                btn.textContent = 'Test PDF Download';
+
+            } catch (error) {
+                console.error('Test failed:', error);
+                resultDiv.innerHTML += '<div class="status error">❌ ERROR: ' + error.message + '<br><br>Details: ' + JSON.stringify(error) + '</div>';
+                btn.disabled = false;
+                btn.textContent = 'Test PDF Download';
+            }
+        }
+    </script>
+</body>
+</html>

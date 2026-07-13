@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VitalMetrics Pro - Body Composition Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-section">
+                <div class="logo-placeholder">
+                    <span>VM</span>
+                </div>
+                <div class="header-text">
+                    <h1>VitalMetrics Pro</h1>
+                    <p>Advanced Body Composition Analysis</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="intro-section">
+                <h2>Generate Wellness Report</h2>
+                <p>Enter your details and biomarker measurements to generate a comprehensive professional health analysis report powered by VitalMetrics Pro technology.</p>
+            </div>
+
+            <form id="wellnessForm">
+                <!-- Person Details Section -->
+                <section class="form-section">
+                    <h3>PERSON DETAILS</h3>
+                    
+                    <div class="form-group">
+                        <label for="personName">Person Name</label>
+                        <input type="text" id="personName" name="personName" placeholder="John Smith" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age (years)</label>
+                            <input type="number" id="age" name="age" placeholder="30" min="1" max="120" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" name="height" placeholder="165" min="50" max="250" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" placeholder="65" min="20" max="300" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobileNumber">Mobile Number</label>
+                        <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="+91 98765 43210" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john.smith@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="evaluationDate">Evaluation Date</label>
+                        <input type="date" id="evaluationDate" name="evaluationDate" required>
+                    </div>
+                </section>
+
+                <!-- Biomarker Measurements Section -->
+                <section class="form-section">
+                    <h3>BIOMARKER MEASUREMENTS</h3>
+                    <p class="section-subtitle" id="rangesSubtitle">Ranges for Male</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trunkFat">Trunk Subcutaneous Fat (%)</label>
+                            <input type="number" id="trunkFat" name="trunkFat" placeholder="Auto-calculated" step="0.1" min="0" max="100">
+                            <small class="target-range" id="trunkFatRange">Target: 8 - 15 %</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="skeletalMuscle">Skeletal Muscle Mass (%)</label>
+                            <input type="number" id="skeletalMuscle" name="skeletalMuscle" placeholder="Auto-calculated" step="0.1" min="0" max="100">
+                            <small class="target-range" id="skeletalMuscleRange">Target: 33 - 36 %</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="totalBodyFat">Total Body Fat (%)</label>
+                            <input type="number" id="totalBodyFat" name="totalBodyFat" placeholder="Auto-calculated" step="0.1" min="0" max="100">
+                            <small class="target-range" id="totalBodyFatRange">Target: 14 - 17 %</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="visceralFat">Visceral Fat Level</label>
+                            <input type="number" id="visceralFat" name="visceralFat" placeholder="Auto-calculated" step="0.1" min="0" max="30">
+                            <small class="target-range">Target: 2 - 8</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bmi">BMI (kg/m²)</label>
+                            <input type="number" id="bmi" name="bmi" placeholder="Auto-calculated" step="0.1" readonly>
+                            <small class="target-range">Target: 18.5 - 24.9 kg/m²</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="bmr">BMR (kcal)</label>
+                            <input type="number" id="bmr" name="bmr" placeholder="Auto-calculated" readonly>
+                            <small class="target-range">Calculated based on formula</small>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Smart Estimation:</strong> All biomarkers will be automatically estimated based on your age, gender, height, weight, and BMI using research-based algorithms. You can also enter manual values if you have actual measurements.
+                    </div>
+
+                    <button type="button" id="autoCalculateBtn" class="btn-secondary" style="margin-top: 15px;">
+                        🤖 Auto-Calculate All Biomarkers
+                    </button>
+                </section>
+
+                <!-- Coach Details Section -->
+                <section class="form-section">
+                    <h3>COACH DETAILS</h3>
+                    
+                    <div class="form-group">
+                        <label for="coachName">Coach Name</label>
+                        <input type="text" id="coachName" name="coachName" placeholder="P Malathi" value="P Malathi">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coachMobile">Coach Mobile Number</label>
+                        <input type="tel" id="coachMobile" name="coachMobile" placeholder="+91 98231 52302" value="9823152302">
+                    </div>
+                </section>
+
+                <!-- Machine Integration Section -->
+                <section class="form-section machine-section">
+                    <h3>HBF-357 MACHINE INTEGRATION</h3>
+                    <p class="section-subtitle">Connect your HBF-357 body composition monitor</p>
+                    
+                    <div class="machine-status" id="machineStatus">
+                        <span class="status-indicator disconnected"></span>
+                        <span>Not Connected</span>
+                    </div>
+
+                    <button type="button" id="connectMachine" class="btn-secondary">Connect HBF-357 Device</button>
+                    
+                    <div class="info-box">
+                        <strong>How it works:</strong> Click "Connect HBF-357 Device" to sync data from your body composition monitor. The device will automatically populate all biomarker fields.
+                    </div>
+                </section>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-primary">Generate Wellness Report</button>
+            </form>
+        </main>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Generating your wellness report...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,590 @@
+/* Report Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f5f7fa;
+    padding: 20px;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+.report-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* Header */
+.report-header {
+    background: #3498db;
+    color: white;
+    padding: 35px;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    background: white;
+    color: #3498db;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logo-section h1 {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.logo-section p {
+    font-size: 16px;
+    opacity: 0.95;
+}
+
+.report-title {
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    padding-top: 20px;
+}
+
+.report-title h2 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.eval-date {
+    font-size: 15px;
+    opacity: 0.9;
+}
+
+/* Sections */
+.report-section {
+    padding: 40px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.section-title {
+    background: #1e4d2b;
+    color: white;
+    padding: 15px 20px;
+    margin: -40px -40px 30px -40px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Person Details */
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    border: 2px solid #1e4d2b;
+}
+
+.detail-item label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e4d2b;
+}
+
+/* Parameter Cards */
+.parameter-card {
+    background: #fff5f5;
+    border-left: 5px solid #dc3545;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.parameter-card.optimal {
+    background: #f0f9f4;
+    border-left-color: #28a745;
+}
+
+.parameter-card.monitor {
+    background: #fff8e6;
+    border-left-color: #ffc107;
+}
+
+.parameter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.parameter-header h4 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e4d2b;
+}
+
+.status-badge {
+    background: #dc3545;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.parameter-card.optimal .status-badge {
+    background: #28a745;
+}
+
+.parameter-card.monitor .status-badge {
+    background: #ffc107;
+    color: #333;
+}
+
+.parameter-values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.param-value label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.param-value .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+}
+
+.param-value .deviation {
+    color: #dc3545;
+}
+
+.param-value .deviation.positive {
+    color: #28a745;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e9ecef;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.optimal-dot {
+    background: #28a745;
+}
+
+.attention-dot {
+    background: #dc3545;
+}
+
+.legend-note {
+    margin-left: auto;
+    font-size: 13px;
+    font-style: italic;
+    color: #666;
+}
+
+/* Biological Age Section */
+.bio-age-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.bio-age-card {
+    background: white;
+    border: 3px solid #1e4d2b;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.bio-age-title {
+    font-size: 32px;
+    color: #dc3545;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.chrono-age {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.age-diff {
+    font-size: 20px;
+    font-weight: 700;
+    color: #dc3545;
+    margin-bottom: 30px;
+}
+
+.wellness-index {
+    margin-top: 30px;
+}
+
+.wellness-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1e4d2b;
+}
+
+.wellness-bar {
+    position: relative;
+    height: 40px;
+    background: linear-gradient(to right, 
+        #dc3545 0%, 
+        #dc3545 20%, 
+        #fd7e14 20%, 
+        #fd7e14 40%, 
+        #ffc107 40%, 
+        #ffc107 60%, 
+        #90ee90 60%, 
+        #90ee90 80%, 
+        #28a745 80%, 
+        #28a745 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.wellness-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    transition: width 1s ease;
+}
+
+.wellness-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+    padding: 0 5px;
+}
+
+/* Coach Remarks */
+.coach-remarks {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    border: 2px solid #1e4d2b;
+}
+
+.coach-remarks h4 {
+    background: #1e4d2b;
+    color: white;
+    padding: 12px 20px;
+    margin: -30px -30px 20px -30px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-radius: 10px 10px 0 0;
+}
+
+.coach-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d6a3e;
+    margin-bottom: 20px;
+}
+
+.remarks-content {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.remarks-content p {
+    margin-bottom: 15px;
+}
+
+/* Action Buttons */
+.action-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 25px 40px;
+    background: #f8f9fa;
+}
+
+.action-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.pdf-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.pdf-btn:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+}
+
+.print-btn {
+    background: #95a5a6;
+    color: white;
+}
+
+.print-btn:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+.whatsapp-btn {
+    background: #25D366;
+    color: white;
+}
+
+.whatsapp-btn:hover {
+    background: #1da851;
+    transform: translateY(-2px);
+}
+
+.email-btn {
+    background: #3498db;
+    color: white;
+}
+
+.email-btn:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.back-btn {
+    background: #34495e;
+    color: white;
+    grid-column: 1 / -1;
+}
+
+.back-btn:hover {
+    background: #2c3e50;
+    transform: translateY(-2px);
+}
+
+.action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.action-btn:disabled:hover {
+    transform: none;
+}
+
+/* Footer */
+.report-footer {
+    background: #f8f9fa;
+    padding: 30px 40px;
+    border-top: 3px solid #1e4d2b;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.8;
+}
+
+.report-footer p {
+    margin-bottom: 8px;
+}
+
+.footer-note {
+    font-style: italic;
+}
+
+.version {
+    font-weight: 600;
+    color: #1e4d2b;
+    margin-top: 10px;
+}
+
+/* PDF Section Markers */
+.pdf-section {
+    position: relative;
+}
+
+/* Print Styles */
+@media print {
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .report-container {
+        box-shadow: none;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+    
+    .pdf-section {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .report-section {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+    
+    .report-header {
+        page-break-after: avoid;
+    }
+    
+    .parameter-card {
+        page-break-inside: avoid;
+        margin-bottom: 15px;
+    }
+    
+    .bio-age-card {
+        page-break-inside: avoid;
+    }
+    
+    .coach-remarks {
+        page-break-inside: avoid;
+    }
+    
+    .remarks-content p {
+        page-break-inside: avoid;
+        orphans: 3;
+        widows: 3;
+    }
+
+    .bio-age-section {
+        page-break-before: auto;
+    }
+    
+    .report-footer {
+        page-break-before: avoid;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .report-header {
+        padding: 25px 20px;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+    }
+
+    .logo-section h1 {
+        font-size: 24px;
+    }
+
+    .report-section {
+        padding: 25px 20px;
+    }
+
+    .section-title {
+        margin: -25px -20px 20px -20px;
+        font-size: 16px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .parameter-values {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .action-section {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .legend-note {
+        margin-left: 0;
+    }
+}
